@@ -184,6 +184,7 @@ UPROGS=\
 	_count_number_of_digits\
 	_get_parent_pid\
 	_get_children_pid\
+	_pathTest\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -253,6 +254,7 @@ qemu-nox-gdb: fs.img xv6.img .gdbinit
 EXTRA=\
 	mkfs.c ulib.c user.h cat.c echo.c forktest.c grep.c kill.c\
 	ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
+	omidtest.c\
 	printf.c umalloc.c count_number_of_digits.c get_parent_pid.c get_children_pid.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\

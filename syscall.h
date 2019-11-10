@@ -23,3 +23,4 @@
 #define SYS_count_number_of_digits 22
 #define SYS_get_parent_pid 23
 #define SYS_get_children_pid 24
+#define SYS_setPath    25

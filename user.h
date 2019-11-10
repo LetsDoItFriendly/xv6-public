@@ -26,6 +26,7 @@ int uptime(void);
 int count_number_of_digits(void);
 int get_parent_pid(void);
 int get_children_pid(int);
+int setPath(const char* a);
 
 // ulib.c
 int stat(const char*, struct stat*);

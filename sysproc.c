@@ -6,6 +6,12 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
+#include "syscall.h"
+#include "spinlock.h"
+#include "sleeplock.h"
+#include "reenterantlock.h"
+
+struct reenterantlock rtest;
 
 int
 sys_fork(void)
@@ -88,4 +94,18 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+int
+sys_reenterantlocktest(void)
+{
+  //add recursive function with lock, unlock
+  return 0; 
+}
+
+
+void
+sys_reenterantlockinit(void)
+{
+  initreenterantlock(&rtest, "TestReenterantLock");
 }

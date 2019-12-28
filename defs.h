@@ -7,6 +7,7 @@ struct proc;
 struct rtcdate;
 struct spinlock;
 struct sleeplock;
+struct reenterantlock;
 struct stat;
 struct superblock;
 
@@ -139,6 +140,11 @@ void            releasesleep(struct sleeplock*);
 int             holdingsleep(struct sleeplock*);
 void            initsleeplock(struct sleeplock*, char*);
 
+// reenterantlock.c
+void            initreenterantlock(struct reenterantlock*, char*);
+void            acquirereenterantlock(struct reenterantlock*);
+void            releasereenterantlock(struct reenterantlock*);
+
 // string.c
 int             memcmp(const void*, const void*, uint);
 void*           memmove(void*, const void*, uint);
@@ -188,3 +194,6 @@ void            clearpteu(pde_t *pgdir, char *uva);
 
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x)/sizeof((x)[0]))
+
+//
+extern struct reenterantlock reenterantlock;

@@ -23,6 +23,9 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+int reenterantlocktest(void);
+void reenterantlockinit(void);
+
 
 // ulib.c
 int stat(const char*, struct stat*);

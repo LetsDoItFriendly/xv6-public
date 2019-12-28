@@ -100,6 +100,18 @@ int
 sys_reenterantlocktest(void)
 {
   //add recursive function with lock, unlock
+  acquirereenterantlock(&rtest);
+  cprintf("lock 1 \n");
+  printlock(&rtest);
+  acquirereenterantlock(&rtest);
+  cprintf("lock 2 \n");
+  printlock(&rtest);
+  releasereenterantlock(&rtest);
+  cprintf("unlock 1 \n");
+  printlock(&rtest);
+  releasereenterantlock(&rtest);
+  cprintf("unlock 2 \n");
+  printlock(&rtest);
   return 0; 
 }
 
@@ -108,4 +120,6 @@ void
 sys_reenterantlockinit(void)
 {
   initreenterantlock(&rtest, "TestReenterantLock");
+  cprintf("init \n");
+  printlock(&rtest);
 }

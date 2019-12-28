@@ -8,8 +8,16 @@
 
 int main(int argc, char *argv[]) 
 {
+	int pid;
 	reenterantlockinit();
-	int t = reenterantlocktest();
-	printf(1, "%d\n", t);
+	pid = fork();
+	reenterantlocktest();
+	if (pid < 0)
+	{
+		printf(1, "%s\n", "fork error");
+	}
+	else if(pid > 0){
+		wait();
+	}
 	exit();
 }

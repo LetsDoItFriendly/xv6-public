@@ -144,6 +144,7 @@ void            initsleeplock(struct sleeplock*, char*);
 void            initreenterantlock(struct reenterantlock*, char*);
 void            acquirereenterantlock(struct reenterantlock*);
 void            releasereenterantlock(struct reenterantlock*);
+void			printlock(struct reenterantlock*);
 
 // string.c
 int             memcmp(const void*, const void*, uint);

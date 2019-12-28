@@ -22,7 +22,7 @@ void initreenterantlock(struct reenterantlock *lock, char* name)
 
 void acquirereenterantlock(struct reenterantlock *lock)
 {
-  if (lock->counter > 0)
+  if (lock->counter > 0 && myproc()->pid == lock->pid)
   {
 	lock->counter++;
   }else{
@@ -39,15 +39,27 @@ void acquirereenterantlock(struct reenterantlock *lock)
 
 void releasereenterantlock(struct reenterantlock *lock)
 {
-	lock->counter--;
-	if (lock->counter == 0)
+	if (myproc()->pid == lock->pid)
 	{
-		acquire(&lock->lk);
-		lock->locked = 0;
-		lock->pid = 0;
-		wakeup(lock);
-		release(&lock->lk);
+		lock->counter--;
+		if (lock->counter == 0)
+		{
+			acquire(&lock->lk);
+			lock->locked = 0;
+			lock->pid = 0;
+			wakeup(lock);
+			release(&lock->lk);
+		}
 	}	
+}
+
+void printlock(struct reenterantlock *lock)
+{
+  cprintf("lock name : %s \n lock locked : %d \n lock pid : %d \n lock counter : %d \n ---------------------------\n",
+  lock->name,
+  lock->locked,
+  lock->pid,
+  lock->counter);  
 }
 
 

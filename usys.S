@@ -31,4 +31,7 @@ SYSCALL(sleep)
 SYSCALL(uptime)
 SYSCALL(reenterantlocktest)
 SYSCALL(reenterantlockinit)
+SYSCALL(reenterantunlock)
+SYSCALL(initBarrier)
+SYSCALL(waitBarrier)
 

@@ -21,4 +21,7 @@
 #define SYS_mkdir  20
 #define SYS_close  21
 #define SYS_reenterantlocktest 22
-#define SYS_reenterantlockinit 23
+#define SYS_reenterantunlock 23
+#define SYS_reenterantlockinit 24
+#define SYS_initBarrier 25
+#define SYS_waitBarrier 26

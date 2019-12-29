@@ -99,18 +99,17 @@ sys_uptime(void)
 int
 sys_reenterantlocktest(void)
 {
-  //add recursive function with lock, unlock
   acquirereenterantlock(&rtest);
   cprintf("lock 1 \n");
   printlock(&rtest);
-  acquirereenterantlock(&rtest);
-  cprintf("lock 2 \n");
-  printlock(&rtest);
+  return 0; 
+}
+
+int
+sys_reenterantunlock(void)
+{
   releasereenterantlock(&rtest);
   cprintf("unlock 1 \n");
-  printlock(&rtest);
-  releasereenterantlock(&rtest);
-  cprintf("unlock 2 \n");
   printlock(&rtest);
   return 0; 
 }
@@ -122,4 +121,17 @@ sys_reenterantlockinit(void)
   initreenterantlock(&rtest, "TestReenterantLock");
   cprintf("init \n");
   printlock(&rtest);
+}
+
+int sys_initBarrier(void){
+  int num, barrierNum;
+  argint(0, &num);
+  argint(1, &barrierNum);
+  return initBarr(num, barrierNum);
+}
+
+int sys_waitBarrier(void){
+  int barrierNum;
+  argint(0, &barrierNum);
+  return waitBarr(barrierNum);
 }

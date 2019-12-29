@@ -25,6 +25,10 @@ int sleep(int);
 int uptime(void);
 int reenterantlocktest(void);
 void reenterantlockinit(void);
+int reenterantunlock(void);
+int initBarrier(int num, int BarrierNum);
+int waitBarrier(int barrierNum);
+
 
 
 // ulib.c

@@ -7,6 +7,17 @@
 #include "proc.h"
 #include "spinlock.h"
 
+struct barrier
+{
+  struct spinlock lock;
+  int barrierSelected;
+  int number;
+};
+
+struct barrier barriers[8];
+
+
+
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -30,6 +41,38 @@ pinit(void)
 int
 cpuid() {
   return mycpu()-cpus;
+}
+
+int initBarr(int num, int barrierNum){
+  acquire(&barriers[barrierNum].lock);
+
+  if(barriers[barrierNum].barrierSelected == 0){
+    barriers[barrierNum].number = num;
+    barriers[barrierNum].barrierSelected = 1;
+    release(&barriers[barrierNum].lock);
+    return 1;
+  }
+  else{
+    release(&barriers[barrierNum].lock);
+    return -1;
+  }
+}
+
+int waitBarr(int barrierNum){
+    acquire(&barriers[barrierNum].lock);
+    if(barriers[barrierNum].barrierSelected != 1){
+      release(&barriers[barrierNum].lock);
+      return -1;
+    }
+    if(barriers[barrierNum].number > 0){
+      barriers[barrierNum].number--;
+    }
+
+    while(barriers[barrierNum].number>0){sleep(&barriers[barrierNum], &barriers[barrierNum].lock);}
+    wakeup(&barriers[barrierNum].lock);
+    release(&barriers[barrierNum].lock);
+
+  return 1;
 }
 
 // Must be called with interrupts disabled to avoid the caller being
